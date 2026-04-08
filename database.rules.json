@@ -1,0 +1,49 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+    
+    "employees": {
+      ".indexOn": ["department", "designation", "total_service", "joining_date", "name"],
+      "$employee_id": {
+        ".read": "auth != null",
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'admin' || auth.uid === $employee_id)",
+        ".validate": "newData.hasChildren(['name', 'department', 'designation', 'mobile', 'qualification', 'joining_date']) && newData.child('mobile').isString() && newData.child('mobile').val().matches(/^[0-9]{10}$/) && newData.child('total_service').isNumber() && newData.child('total_service').val() >= 0 && newData.child('cbit_experience').isNumber() && newData.child('cbit_experience').val() >= 0 && newData.child('joining_date').isNumber() && newData.child('joining_date').val() > 0"
+      }
+    },
+    
+    "users": {
+      "$employee_id": {
+        ".read": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'admin' || auth.uid === $employee_id)",
+        ".write": "auth != null && (root.child('users').child(auth.uid).child('role').val() === 'admin' || auth.uid === $employee_id)",
+        ".validate": "newData.hasChildren(['email', 'role']) && newData.child('email').isString() && newData.child('email').val().matches(/^[^@]+@[^@]+\\.[^@]+$/) && (newData.child('role').val() === 'admin' || newData.child('role').val() === 'employee')"
+      }
+    },
+    
+    "departments": {
+      ".indexOn": ["name"],
+      "$department": {
+        ".read": "auth != null",
+        ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'"
+      }
+    },
+    
+    "designations": {
+      ".indexOn": ["name", "level"],
+      "$designation": {
+        ".read": "auth != null", 
+        ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'"
+      }
+    },
+    
+    "audit_logs": {
+      "$employee_id": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+        ".write": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+        "$log_id": {
+          ".validate": "newData.hasChildren(['employee_id', 'timestamp', 'changed_by', 'changes']) && newData.child('employee_id').isString() && newData.child('timestamp').isNumber() && newData.child('changed_by').isString()"
+        }
+      }
+    }
+  }
+}
