@@ -4,13 +4,17 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const path = require('path');
+
 // Check if environment variables are loaded
-const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
-if (!serviceAccountPath) {
+const envPath = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
+if (!envPath) {
     console.error('ERROR: FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set');
     console.error('Please copy .env.example to .env and configure your Firebase settings');
     process.exit(1);
 }
+
+const serviceAccountPath = path.join(__dirname, envPath);
 
 try {
     var serviceAccount = require(serviceAccountPath);
@@ -43,5 +47,6 @@ module.exports = {
   admin,
   firebase,
   db: admin.database(),
-  auth: admin.auth()
+  auth: admin.auth(),
+  firestore: admin.firestore()
 };

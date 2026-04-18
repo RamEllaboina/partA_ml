@@ -143,3 +143,6 @@ Thumbs.db
 # Firebase service account
 employee-system.json
 *.json
+
+# Sprite tests
+testsprite_tests/

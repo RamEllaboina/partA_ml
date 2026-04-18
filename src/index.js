@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const employeeRoutes = require('./routes/employees');
+const partDRoutes = require('./partD/partD.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.get('/health', (req, res) => {
 
 // API Routes
 app.use('/api/employees', employeeRoutes);
+app.use('/api/partD', partDRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
