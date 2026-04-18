@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const employeeRoutes = require('./routes/employees');
+const partBRoutes = require('./routes/partB');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.get('/health', (req, res) => {
 
 // API Routes
 app.use('/api/employees', employeeRoutes);
+app.use('/api/part-b', partBRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -30,6 +32,7 @@ app.get('/', (req, res) => {
     endpoints: {
       health: '/health',
       employees: '/api/employees',
+      'part-b': '/api/part-b',
       documentation: '/api/docs'
     }
   });
@@ -55,6 +58,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Firebase Employee Management API running on port ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
   console.log(`👥 Employees API: http://localhost:${PORT}/api/employees`);
+  console.log(`📚 Part B API: http://localhost:${PORT}/api/part-b`);
 });
 
 module.exports = app;

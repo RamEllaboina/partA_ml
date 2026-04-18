@@ -43,5 +43,6 @@ module.exports = {
   admin,
   firebase,
   db: admin.database(),
+  firestore: admin.firestore(),
   auth: admin.auth()
 };
