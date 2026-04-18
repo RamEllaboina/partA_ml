@@ -1,0 +1,16 @@
+{
+  "name": "faculty-partb-api",
+  "version": "1.0.0",
+  "description": "Part B Teaching Learning Evaluation API with Firebase Firestore",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-admin": "^11.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  }
+}
