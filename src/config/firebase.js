@@ -9,19 +9,18 @@ const path = require('path');
 // Check if environment variables are loaded
 const envPath = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 if (!envPath) {
-    console.error('ERROR: FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set');
-    console.error('Please copy .env.example to .env and configure your Firebase settings');
-    process.exit(1);
+  console.error('ERROR: FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set');
+  console.error('Please copy .env.example to .env and configure your Firebase settings');
+  process.exit(1);
 }
 
 const serviceAccountPath = path.join(__dirname, envPath);
-
 try {
-    var serviceAccount = require(serviceAccountPath);
+  var serviceAccount = require(serviceAccountPath);
 } catch (error) {
-    console.error('ERROR: Cannot load service account key file:', serviceAccountPath);
-    console.error('Please ensure the file exists and is valid JSON');
-    process.exit(1);
+  console.error('ERROR: Cannot load service account key file:', serviceAccountPath);
+  console.error('Please ensure the file exists and is valid JSON');
+  process.exit(1);
 }
 
 admin.initializeApp({

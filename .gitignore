@@ -146,3 +146,4 @@ employee-system.json
 
 # Sprite tests
 testsprite_tests/
+config/serviceAccountKey.json
